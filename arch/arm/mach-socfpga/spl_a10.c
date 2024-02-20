@@ -122,7 +122,11 @@ void spl_board_init(void)
 	arch_early_init_r();
 
 	/* If the full FPGA is already loaded, ie.from EPCQ, config fpga pins */
+#ifdef CONFIG_TARGET_SOCFPGA_ARRIA10_ALWAYS_REPROGRAM
+	if (is_regular_boot_valid()) {
+#else
 	if (is_fpgamgr_user_mode()) {
+#endif
 		ret = config_pins(gd->fdt_blob, "shared");
 		if (ret)
 			return;
@@ -130,7 +134,11 @@ void spl_board_init(void)
 		ret = config_pins(gd->fdt_blob, "fpga");
 		if (ret)
 			return;
+#ifdef CONFIG_TARGET_SOCFPGA_ARRIA10_ALWAYS_REPROGRAM
+	} else {
+#else
 	} else if (!is_fpgamgr_early_user_mode()) {
+#endif
 		/* Program IOSSM(early IO release) or full FPGA */
 		fpgamgr_program(buf, FPGA_BUFSIZ, 0);
 
