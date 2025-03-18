@@ -537,7 +537,7 @@ static int zboot_go(void)
 
 	entry = state.load_address;
 	image_64bit = false;
-	if (IS_ENABLED(CONFIG_X86_RUN_64BIT) &&
+	if (IS_ENABLED(CONFIG_X86_64) &&
 	    (hdr->xloadflags & XLF_KERNEL_64)) {
 		entry += 0x200;
 		image_64bit = true;
