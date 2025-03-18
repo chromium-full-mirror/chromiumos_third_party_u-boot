@@ -44,7 +44,7 @@ static int get_efi_leafname(char *str, int max_len)
 		base = "bootarm";
 	else if (IS_ENABLED(CONFIG_X86_RUN_32BIT))
 		base = "bootia32";
-	else if (IS_ENABLED(CONFIG_X86_RUN_64BIT))
+	else if (IS_ENABLED(CONFIG_X86_64))
 		base = "bootx64";
 	else if (IS_ENABLED(CONFIG_ARCH_RV32I))
 		base = "bootriscv32";
